@@ -39,7 +39,9 @@ public class TicketServiceImplTest {
         verify(ticketPaymentService).makePayment(1L, 50);
         verify(seatReservationService).reserveSeat(1L, 3);
     }
-
+    /**
+     * Negative test for ticket purchased without Adult
+     */
     @Test(expected = InvalidPurchaseException.class)
     public void testPurchaseTicketsThrowsInvalidPurchaseExceptionWhenOnlyChildAndInfantTicket() {
         final TicketTypeRequest ticketTypeRequest1 = new TicketTypeRequest(TicketTypeRequest.Type.INFANT, 3);
@@ -47,7 +49,9 @@ public class TicketServiceImplTest {
 
         ticketService.purchaseTickets(1L, ticketTypeRequest1, ticketTypeRequest2);
     }
-
+    /**
+     * Negative test for maximum number of ticket >20
+     */
     @Test(expected = InvalidPurchaseException.class)
     public void testPurchaseTicketsThrowsInvalidPurchaseExceptionWhenMaxTicketsExceeded() {
         final TicketTypeRequest ticketTypeRequest1 = new TicketTypeRequest(TicketTypeRequest.Type.ADULT, 2);
@@ -59,7 +63,9 @@ public class TicketServiceImplTest {
         ticketService.purchaseTickets(1L, ticketTypeRequest1, ticketTypeRequest2, ticketTypeRequest3,
                 ticketTypeRequest4, ticketTypeRequest5);
     }
-
+    /**
+     * Negative test for Invalid AccountID
+     */
     @Test(expected = InvalidPurchaseException.class)
     public void testPurchaseTicketsThrowsInvalidPurchaseExceptionWhenInvalidAccountId() {
         final TicketTypeRequest ticketTypeRequest1 = new TicketTypeRequest(TicketTypeRequest.Type.ADULT, 2);
